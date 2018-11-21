@@ -43,7 +43,7 @@ spec:
         - name: HTTP_ENABLE
           value: "true"
         - name: ES_JAVA_OPTS
-          value: -Xms256m -Xmx256m
+          value: -Xms2048m -Xmx2048m
         - name: NETWORK_HOST
           value: _site_,_lo_
         - name: PROCESSORS
@@ -52,9 +52,11 @@ spec:
               resource: limits.cpu
         resources:
           requests:
-            cpu: 0.25
-          limits:
             cpu: 1
+            memory: 2.5G
+          limits:
+            cpu: 2
+            memory: 4.5G
         ports:
         - containerPort: 9200
           name: http
@@ -63,13 +65,13 @@ spec:
         livenessProbe:
           tcpSocket:
             port: transport
-          initialDelaySeconds: 20
+          initialDelaySeconds: 60
           periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /_cluster/health
             port: http
-          initialDelaySeconds: 20
+          initialDelaySeconds: 60
           timeoutSeconds: 5
         volumeMounts:
         - name: storage
