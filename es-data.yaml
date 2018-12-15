@@ -75,6 +75,6 @@ spec:
         - name: storage
           mountPath: /data
       volumes:
-          - emptyDir:
-              medium: ""
+          - persistentVolumeClaim:
+              claimName: elasticsearch-storage
             name: storage
